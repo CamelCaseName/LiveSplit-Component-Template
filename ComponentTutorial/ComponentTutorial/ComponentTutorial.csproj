@@ -17,7 +17,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
+    <OutputPath>D:\House party modding\speedruns\LiveSplit_1.8.16\Components\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -35,6 +35,9 @@
     <StartupObject />
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="LiveSplit.Core">
+      <HintPath>D:\House party modding\speedruns\LiveSplitDevBuild\LiveSplit.Core.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -46,6 +49,12 @@
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
+    <Reference Include="UpdateManager">
+      <HintPath>D:\House party modding\speedruns\LiveSplitDevBuild\UpdateManager.dll</HintPath>
+    </Reference>
+    <Reference Include="WinFormsColor">
+      <HintPath>D:\House party modding\speedruns\LiveSplitDevBuild\WinFormsColor.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ComponentTutorialComponent.cs" />

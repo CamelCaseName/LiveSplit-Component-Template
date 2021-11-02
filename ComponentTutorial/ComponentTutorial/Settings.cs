@@ -26,7 +26,8 @@ namespace LiveSplit.UI.Components
 
         //so for this page I will create one setting and that should be a good template for how to create settings and save or load them
         //a setting can be anything you want
-        public Boolean clicked { get; set; }
+        public String Value { get; set; }
+        public int Category { get; set; }
 
         public Settings(LiveSplitState state)
         {
@@ -38,19 +39,19 @@ namespace LiveSplit.UI.Components
             this.state = state;
 
             //initialize the setting variables
-            clicked = false;
+            Value = "Current run category";
+            label1.Text = Value;
+            listBox1.SelectedItem = 0;
 
 
             //add databindings to settings
             //this means that the controls will have data binded to teh setting variables, it doesn't inherently do anything,
             //but it is required for liveplsit to recognize your component
-            checkBox1.DataBindings.Add(new Binding("Checked", this, "clicked"));
+            //checkBox1.DataBindings.Add(new Binding("Checked", this, "clicked"));
+            //label1.DataBindings.Add(new Binding("Label", this, "Value"));
+            listBox1.DataBindings.Add(new Binding("SelectedItem", this, "Category"));
             //^"Control name".-----------------------^"property name", "dataset", "data memeber/as in the setting"
             ////////////////the "property name" MUST MUST MUST be an actual property within the control////////////////
-
-
-            //add eventhandlers to the controls
-            checkBox1.CheckedChanged += checkBox1_CheckedChanged;
 
             //this is another event for when the settings load
             this.Load += settings_load;
@@ -69,12 +70,12 @@ namespace LiveSplit.UI.Components
             //----------------------------------------| this arg must be this.ToString()
             //document.CreateElement(this.ToString()).InnerText = "Component Tutorial";
             var Element = document.CreateElement(this.ToString());
-            Element.InnerText = "Component Tutorial";
+            Element.InnerText = "HPspeed";
             parent.AppendChild(Element);
             //elements!
             //You have to create an element (like Element), then change its value through innertext, and apppend it as a child to the parent
-            Element = document.CreateElement("Clicked");
-            Element.InnerText = clicked.ToString();
+            Element = document.CreateElement("Category");
+            Element.InnerText = Category.ToString();
             parent.AppendChild(Element);
             //returns that node that was just created
             return parent;
@@ -86,23 +87,27 @@ namespace LiveSplit.UI.Components
         {
             //the settings node is the same as one created in GetSettings
             //The main point of this funciton is to check for changes and then assign those changes to the variables the elements are connected to
-            if (settings["Clicked"].InnerText != null)
-            {
-                //set the value from the settings to the corresponding variable
-                clicked = bool.Parse(settings["Clicked"].InnerText);
-            }
+            //if (settings["Clicked"].InnerText != null)
+            //{
+            //    //set the value from the settings to the corresponding variable
+            //    clicked = bool.Parse(settings["Clicked"].InnerText);
+            //}
         }
 
         private void settings_load(object sender, EventArgs e)
         {
             //make sure that everything is synced with what the settings currently are, also make sure to add this sort of event to the component, in case you have settings
             //that interact with the component
-            clicked = checkBox1.Checked;
         }
 
-        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        private void label1_Click(object sender, EventArgs e)
         {
-            clicked = checkBox1.Checked;
+
+        }
+
+        private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            Category = listBox1.SelectedIndex;
         }
     }
 }

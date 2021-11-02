@@ -13,6 +13,8 @@ using LiveSplit.UI.Components;
 using System.Drawing;
 using System.Windows.Forms;
 using System.Xml;
+using System.IO.MemoryMappedFiles;
+using HPdata;
 
 //this namespace is necessary in order to make a component correctly, as this class uses a livesplit component interface in order to be recognizable
 namespace LiveSplit.UI.Components
@@ -32,6 +34,10 @@ namespace LiveSplit.UI.Components
         // and there is only one state that you get your information from
         public LiveSplitState state;
 
+        private readonly MemoryMappedFile MemoryFile = MemoryMappedFile.CreateOrOpen("HousePartyMemoryFile", 1024);
+        private readonly MemoryMappedViewAccessor Accessor;
+        private Data SharedData;
+
         //create a constructor for this class that includes an argument for LiveSplits State
         public ComponentTutorialComponent(LiveSplitState state)
         {
@@ -44,11 +50,20 @@ namespace LiveSplit.UI.Components
             //set the width and height(horizontal and vertical refer to which mode livesplit is in)
             HorizontalWidth = 100;
             VerticalHeight = 100;
+
+            Accessor = MemoryFile.CreateViewAccessor();
+
+            state.CurrentTimingMethod = TimingMethod.GameTime;
+            state.IsGameTimeInitialized = true;
+            
+            //split by increasing split index, start by calling run
         }
+
+        private float CurrentTime = 0f;
 
         //make sure this matches the factory
         //this should really only be read-only
-        public string ComponentName => "Component Tutorial";
+        public string ComponentName => "HPspeed";
 
         //depending on your component you can make these readonly or changeable, just as long as they are readable
         public float HorizontalWidth { get; set; }
@@ -75,9 +90,7 @@ namespace LiveSplit.UI.Components
         //this method draws the component when Livesplit is in horizontal mode
         public void DrawHorizontal(Graphics g, LiveSplitState state, float height, Region clipRegion)
         {
-            //here is where you draw what you want for your component, I would recommend looking at microsoft c# tutorials on graphics and painting/drawing
-            //Pen pen = new Pen(Color.Red, 5);
-            //g.DrawLine(pen, 0, 0, HorizontalWidth, VerticalHeight);
+            g.DrawString(CurrentTime.ToString(), SystemFonts.DefaultFont, SystemBrushes.FromSystemColor(SystemColors.ControlLightLight), new PointF(10,10));
         }
 
         //this method draws the component when Livesplit is in vertical mode
@@ -108,6 +121,12 @@ namespace LiveSplit.UI.Components
         //this update funciton updates the component, not much I need to do here but feel free to experiment with this
         public void Update(IInvalidator invalidator, LiveSplitState state, float width, float height, LayoutMode mode)
         {
+            Accessor.Read(0, out SharedData);
+            state.SetGameTime(new TimeSpan(0, 0, 0, 0, (int)(SharedData.Time * 1000)));
+
+            //to do splitting
+
+            state.LoadingTimes = new TimeSpan(0, 0, 0, 0, (int)((SharedData.TotalTime - SharedData.Time) * 1000));
 
         }
 

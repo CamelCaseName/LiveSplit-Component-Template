@@ -20,13 +20,13 @@ namespace LiveSplit.ComponentTutorial
         public ComponentCategory Category
         {
             //you can change the component category to any of the other options
-            get { return ComponentCategory.Other; }
+            get { return ComponentCategory.Timer; }
         }
 
         //this is the name that livesplit will display this component as
         public string ComponentName
         {
-            get { return "Compoent Tutorial"; }
+            get { return "HPspeed"; }
         }
 
         //this funciton creates a new instance of your component from the component class
@@ -38,7 +38,7 @@ namespace LiveSplit.ComponentTutorial
         //this is a description that is displayed when the component is hovered over
         public string Description
         {
-            get { return "This is a tutorial on how to create a component"; }
+            get { return "This is a component to interface with the speedrunning mod for House Party"; }
         }
 
         // all of this stuff has to do with updating,
@@ -50,12 +50,12 @@ namespace LiveSplit.ComponentTutorial
 
         public string UpdateURL
         {
-            get { return ""; }
+            get { return "https://github.com/CamelCaseName/LiveSplit-Component-Template"; }
         }
 
         public Version Version
         {
-            get { return Version.Parse("0.0"); }
+            get { return Version.Parse("0.1"); }
         }
 
         public string XMLURL

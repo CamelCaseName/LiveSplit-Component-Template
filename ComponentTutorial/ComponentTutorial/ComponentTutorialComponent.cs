@@ -37,6 +37,7 @@ namespace LiveSplit.UI.Components
         private readonly MemoryMappedFile MemoryFile = MemoryMappedFile.CreateOrOpen("HousePartyMemoryFile", 1024);
         private readonly MemoryMappedViewAccessor Accessor;
         private Data SharedData;
+        //private bool RunStarted = false;
 
         //create a constructor for this class that includes an argument for LiveSplits State
         public ComponentTutorialComponent(LiveSplitState state)
@@ -49,17 +50,19 @@ namespace LiveSplit.UI.Components
 
             //set the width and height(horizontal and vertical refer to which mode livesplit is in)
             HorizontalWidth = 100;
-            VerticalHeight = 100;
+            VerticalHeight = 30;
 
             Accessor = MemoryFile.CreateViewAccessor();
 
             state.CurrentTimingMethod = TimingMethod.GameTime;
             state.IsGameTimeInitialized = true;
-            
+
             //split by increasing split index, start by calling run
+
         }
 
-        private float CurrentTime = 0f;
+        //private float CurrentTime = 0f;
+        private String version = "";
 
         //make sure this matches the factory
         //this should really only be read-only
@@ -86,11 +89,11 @@ namespace LiveSplit.UI.Components
 
         //this is for when your componet is right clicked, I haven't really had to use this but you can certainly mess around and add contexstmenu items
         public IDictionary<string, Action> ContextMenuControls { get; set; }
-        
+
         //this method draws the component when Livesplit is in horizontal mode
         public void DrawHorizontal(Graphics g, LiveSplitState state, float height, Region clipRegion)
         {
-            g.DrawString(CurrentTime.ToString(), SystemFonts.DefaultFont, SystemBrushes.FromSystemColor(SystemColors.ControlLightLight), new PointF(10,10));
+            g.DrawString(version, SystemFonts.DefaultFont, SystemBrushes.FromSystemColor(SystemColors.ControlLightLight), new PointF(10, 10));
         }
 
         //this method draws the component when Livesplit is in vertical mode
@@ -105,7 +108,7 @@ namespace LiveSplit.UI.Components
         {
             return settings.GetSettings(document);
         }
-        
+
         //this gets teh user control to be displayed in livesplit
         public Control GetSettingsControl(LayoutMode mode)
         {
@@ -122,15 +125,27 @@ namespace LiveSplit.UI.Components
         public void Update(IInvalidator invalidator, LiveSplitState state, float width, float height, LayoutMode mode)
         {
             Accessor.Read(0, out SharedData);
+
             state.SetGameTime(new TimeSpan(0, 0, 0, 0, (int)(SharedData.Time * 1000)));
+            //state.LoadingTimes = new TimeSpan(0, 0, 0, 0, (int)((SharedData.TotalTime - SharedData.Time) * 1000));
 
-            //to do splitting
+            version = state.CurrentSplitIndex.ToString() + " " + SharedData.Time.ToString();
 
-            state.LoadingTimes = new TimeSpan(0, 0, 0, 0, (int)((SharedData.TotalTime - SharedData.Time) * 1000));
+            //if ((SharedData.PlayerMoved || SharedData.Time > 0.01f) && !RunStarted && SharedData.GameMain)
+            //{
+            //    _ = state.Run;
+            //    RunStarted = true;
+            //}
+
+            if (SharedData.AmyTopless && state.CurrentSplitIndex == -1)
+            {
+                state.CurrentSplitIndex++;
+                //state.AttemptEnded = new AtomicDateTime(new DateTime(), true);
+            }
 
         }
 
-        
+
         //when implementing the interface, have visual studio create this for you, by selecting implement interface with dispose pattern(the last option)
         //this function gets rid of objects that aren't being used, like when the component is closed
         #region IDisposable Support

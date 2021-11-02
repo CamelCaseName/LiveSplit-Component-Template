@@ -32,7 +32,7 @@ namespace LiveSplit.ComponentTutorial
         //this funciton creates a new instance of your component from the component class
         public IComponent Create(Model.LiveSplitState state)
         {
-            return new ComponentTutorialComponent(state);
+            return new AutoSplitterComponent(state);
         }
 
         //this is a description that is displayed when the component is hovered over

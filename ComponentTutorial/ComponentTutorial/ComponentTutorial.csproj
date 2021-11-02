@@ -59,7 +59,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ComponentTutorialComponent.cs" />
+    <Compile Include="AutoSplitterComponent.cs" />
     <Compile Include="ComponentTutorialFactory.cs" />
     <Compile Include="Data.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

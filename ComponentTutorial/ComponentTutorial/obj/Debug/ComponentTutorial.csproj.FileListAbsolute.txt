@@ -12,13 +12,13 @@ C:\Users\dsiglin\Documents\ComponentTutorial\ComponentTutorial\obj\Debug\Compone
 C:\Users\dsiglin\Documents\ComponentTutorial\ComponentTutorial\obj\Debug\ComponentTutorial.csproj.CopyComplete
 C:\Users\dsiglin\Documents\ComponentTutorial\ComponentTutorial\obj\Debug\ComponentTutorial.dll
 C:\Users\dsiglin\Documents\ComponentTutorial\ComponentTutorial\obj\Debug\ComponentTutorial.pdb
-D:\House party modding\speedruns\LiveSplit_1.8.16\Components\ComponentTutorial.dll.config
-D:\House party modding\speedruns\LiveSplit_1.8.16\Components\ComponentTutorial.dll
-D:\House party modding\speedruns\LiveSplit_1.8.16\Components\ComponentTutorial.pdb
 F:\Lenny\source\repos\HPspeedLS\ComponentTutorial\ComponentTutorial\obj\Debug\ComponentTutorial.csproj.AssemblyReference.cache
 F:\Lenny\source\repos\HPspeedLS\ComponentTutorial\ComponentTutorial\obj\Debug\ComponentTutorial.Properties.Resources.resources
 F:\Lenny\source\repos\HPspeedLS\ComponentTutorial\ComponentTutorial\obj\Debug\LiveSplit.UI.Components.Settings.resources
 F:\Lenny\source\repos\HPspeedLS\ComponentTutorial\ComponentTutorial\obj\Debug\ComponentTutorial.csproj.GenerateResource.cache
 F:\Lenny\source\repos\HPspeedLS\ComponentTutorial\ComponentTutorial\obj\Debug\ComponentTutorial.csproj.CoreCompileInputs.cache
-F:\Lenny\source\repos\HPspeedLS\ComponentTutorial\ComponentTutorial\obj\Debug\ComponentTutorial.dll
-F:\Lenny\source\repos\HPspeedLS\ComponentTutorial\ComponentTutorial\obj\Debug\ComponentTutorial.pdb
+D:\House party modding\speedruns\LiveSplit_1.8.16\Components\HPspeedComponent.dll.config
+D:\House party modding\speedruns\LiveSplit_1.8.16\Components\HPspeedComponent.dll
+D:\House party modding\speedruns\LiveSplit_1.8.16\Components\HPspeedComponent.pdb
+F:\Lenny\source\repos\HPspeedLS\ComponentTutorial\ComponentTutorial\obj\Debug\HPspeedComponent.dll
+F:\Lenny\source\repos\HPspeedLS\ComponentTutorial\ComponentTutorial\obj\Debug\HPspeedComponent.pdb

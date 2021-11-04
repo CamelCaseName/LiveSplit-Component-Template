@@ -1,21 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 //these are all necessary for what the settings class should do
-using ComponentTutorial;
 using System.Xml;
 using LiveSplit.Model;
-using System.IO;
-using System.Collections;
-using System.Drawing.Imaging;
-using System.Runtime.Serialization;
 
 //The settings must also be under the LiveSplit.UI.Components as it uses things from the namespace to set and get settings
 namespace LiveSplit.UI.Components

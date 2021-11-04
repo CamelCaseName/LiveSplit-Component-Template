@@ -7,7 +7,7 @@
     <ProjectGuid>{2246B670-ABCA-4FED-ABBD-3AA650127C77}</ProjectGuid>
     <OutputType>Library</OutputType>
     <RootNamespace>ComponentTutorial</RootNamespace>
-    <AssemblyName>ComponentTutorial</AssemblyName>
+    <AssemblyName>HPspeedComponent</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>

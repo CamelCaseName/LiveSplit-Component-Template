@@ -1,34 +1,58 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿using HPdata;
 //these are necessary to allow for you to do most anything you need within your component
 using LiveSplit.Model;
-using LiveSplit.Model.Input;
-using LiveSplit.ComponentTutorial;
-using ComponentTutorial;
-using LiveSplit.UI.Components;
-using System.Drawing;
+using System;
+using System.IO.MemoryMappedFiles;
 using System.Windows.Forms;
 using System.Xml;
-using System.IO.MemoryMappedFiles;
-using HPdata;
 
 namespace LiveSplit.UI.Components
 {
     public class AutoSplitterComponent : UI.Components.LogicComponent
     {
-        private Settings settings;
+        private readonly Settings settings;
 
         private readonly TimerModel timer;
         private readonly LiveSplitState state;
+        private float Time;
 
-        private readonly MemoryMappedFile MemoryFile = MemoryMappedFile.CreateOrOpen("HousePartyMemoryFile", 1024);
+        private readonly MemoryMappedFile MemoryFile = MemoryMappedFile.CreateOrOpen("HousePartyMemoryFile", 2048);
         private readonly MemoryMappedViewAccessor Accessor;
-        private Data SharedData;
+        public Data SharedData = new Data();
         private bool RunStarted = false;
+        private enum CategoryE
+        {
+            TOPLESSAmy,
+            TOPLESSAshley,
+            TOPLESSBrittney,
+            TOPLESSKatherine,
+            TOPLESSLeah,
+            TOPLESSLety,
+            TOPLESSMadison,
+            TOPLESSRachael,
+            TOPLESSStephanie,
+            TOPLESSVickie,
+            ALLREWARDS14,
+            ALLREWARDS15,
+            ALLREWARDS16,
+            ALLREWARDS17,
+            ALLREWARDS18,
+            ALLREWARDS19,
+            ALLREWARDS20,
+            REWARDAmy,
+            REWARDAshley,
+            REWARDDerek,
+            REWARDFrank,
+            REWARDKatherine,
+            REWARDLeah,
+            REWARDLety,
+            REWARDMadison,
+            REWARDPatrick,
+            REWARDRachael,
+            REWARDStephanie,
+            REWARDVickie,
+            THREESOME20
+        };
 
         //create a constructor for this class that includes an argument for LiveSplits State
         public AutoSplitterComponent(LiveSplitState state)
@@ -39,13 +63,19 @@ namespace LiveSplit.UI.Components
             //create a new settings object for this component as each one will need its own settings
             settings = new Settings(state);
 
-            Accessor = MemoryFile.CreateViewAccessor();
+            //get timer from state
+            timer = new TimerModel { CurrentState = state };
+
+            timer.OnStart += OnTimerStart;
+            timer.OnPause += OnTimerPause;
 
             state.CurrentTimingMethod = TimingMethod.GameTime;
-            state.IsGameTimeInitialized = true;
-
-            //split by increasing split index, start by calling run
-
+            Accessor = MemoryFile.CreateViewAccessor();
+            if (Accessor.CanRead)
+            {
+                state.IsGameTimeInitialized = true;
+                Accessor.Read(0, out SharedData);
+            }
         }
 
         //make sure this matches the factory
@@ -75,18 +105,44 @@ namespace LiveSplit.UI.Components
         {
             Accessor.Read(0, out SharedData);
 
-            state.SetGameTime(new TimeSpan(0, 0, 0, 0, (int)(SharedData.Time * 1000)));
+            //System.Diagnostics.Debug.Write(SharedData.ToString());
 
-            if (SharedData.PlayerMoved && !RunStarted && SharedData.GameMain)
+            if (SharedData.InMenu ==  0 && SharedData.PlayerMoved == 1 && SharedData.GameMain == 1)
             {
-                _ = state.Run;
-                RunStarted = true;
+                System.Diagnostics.Debug.Write(Time.ToString());
+                if (!RunStarted)
+                {
+                    state.IsGameTimeInitialized = true;
+                    Time = 0f;
+                    _ = state.Run;
+                    RunStarted = true;
+                    timer.Start();
+                    state.SetGameTime(new TimeSpan(0, 0, 0, 0, (int)(Time * 1000)));
+                }
+                else
+                {
+                    Time += SharedData.DeltaTime;
+                    state.SetGameTime(new TimeSpan(0, 0, 0, 0, (int)(Time * 1000)));
+                }
+            }
+            else
+            {
+                state.SetGameTime(new TimeSpan(0, 0, 0, 0, (int)(Time * 1000)));
             }
 
-            if (SharedData.AmyTopless && state.CurrentSplitIndex == -1)
+            if (SharedData.AmyTopless == 1 && settings.Category == (int)CategoryE.TOPLESSAmy)
             {
-                state.CurrentSplitIndex += 1;
+                timer.Split();
             }
+        }
+
+        private void OnTimerStart(object sender, EventArgs e)
+        {
+
+        }
+
+        private void OnTimerPause(object sender, EventArgs e)
+        {
 
         }
 

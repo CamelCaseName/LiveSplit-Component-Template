@@ -130,7 +130,53 @@ namespace LiveSplit.UI.Components
                 state.SetGameTime(new TimeSpan(0, 0, 0, 0, (int)(Time * 1000)));
             }
 
+            //amy topless%
             if (SharedData.AmyTopless == 1 && settings.Category == (int)CategoryE.TOPLESSAmy)
+            {
+                timer.Split();
+            }
+            //ashley topless%
+            if (SharedData.AshleyTopless == 1 && settings.Category == (int)CategoryE.TOPLESSAshley)
+            {
+                timer.Split();
+            }
+            //Brittney topless%
+            if (SharedData.BrittneyTopless == 1 && settings.Category == (int)CategoryE.TOPLESSBrittney)
+            {
+                timer.Split();
+            }
+            //Katherine topless%
+            if (SharedData.KatherineTopless == 1 && settings.Category == (int)CategoryE.TOPLESSKatherine)
+            {
+                timer.Split();
+            }
+            //Madison topless%
+            if (SharedData.MadisonTopless == 1 && settings.Category == (int)CategoryE.TOPLESSMadison)
+            {
+                timer.Split();
+            }
+            //Leah topless%
+            if (SharedData.LeahTopless == 1 && settings.Category == (int)CategoryE.TOPLESSLeah)
+            {
+                timer.Split();
+            }
+            //Lety topless%
+            if (SharedData.LetyTopless == 1 && settings.Category == (int)CategoryE.TOPLESSLety)
+            {
+                timer.Split();
+            }
+            //Rachael topless%
+            if (SharedData.RachaelTopless == 1 && settings.Category == (int)CategoryE.TOPLESSRachael)
+            {
+                timer.Split();
+            }
+            //Stephanie topless%
+            if (SharedData.StephanieTopless == 1 && settings.Category == (int)CategoryE.TOPLESSStephanie)
+            {
+                timer.Split();
+            }
+            //Vickie topless%
+            if (SharedData.VickieTopless == 1 && settings.Category == (int)CategoryE.TOPLESSVickie)
             {
                 timer.Split();
             }
